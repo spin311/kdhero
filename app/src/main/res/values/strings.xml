@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Nightsky Observer</string>
+    <string name="action_settings">Settings</string>
+    <string name="tab1_title">Sky Observations</string>
+    <string name="tab2_title">Planet Wiki</string>
+    <string name="tab3_title">Notes</string>
+
+
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="notes_text">Our citizen scientist should be able to put notes here</string>
+</resources>
