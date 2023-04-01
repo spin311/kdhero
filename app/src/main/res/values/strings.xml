@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Zdravko</string>
     <string name="app_name">Health app</string>
     <string name="action_settings">Settings</string>
     <string name="tab1_title">Sky Observations</string>
@@ -12,4 +13,20 @@
     <string name="notes_text">Our citizen scientist should be able to put notes here</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_in_text">Prijavi se!</string>
+    <string name="register_text">Registriraj se!</string>
+    <string name="reg_name_hint">Uporabniško ime</string>
+    <string name="reg_pass_hint">Geslo</string>
+    <string name="reg_pass_again_hint">Ponovi geslo</string>
+    <string name="reg_email_hint">Email</string>
+    <string name="reg_sex_hint">Spol</string>
+    <string name="reg_age_hint">Starost</string>
+    <string name="reg_button">POTRDI</string>
+    <string name="lgn_button">PRIJAVA</string>
+    <string name="to_reg_button">REGISTRACIJA</string>
+    <string name="sex_m">Moški</string>
+    <string name="sex_f">Ženski</string>
+    <string name="genderPrompt">Spol</string>
+    <string name="sign_in">Prijavi se!</string>
+    <string name="doRegText">Še nimaš uporabniškega računa?\n Registriraj se!</string>
 </resources>
