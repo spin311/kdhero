@@ -6,7 +6,8 @@
     <string name="tab3_title">Notes</string>
 
 
-
     <!-- Strings used for fragments for navigation -->
     <string name="notes_text">Our citizen scientist should be able to put notes here</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
