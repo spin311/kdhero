@@ -44,7 +44,7 @@
         android:drawablePadding="20dp"
         android:hint="Uporabniško ime"
         android:padding="20dp"
-        android:textColorHint="202020" />
+        android:textColorHint="#202020" />
 
     <EditText
         android:id="@+id/password"
@@ -59,7 +59,7 @@
         android:drawablePadding="20dp"
         android:hint="Geslo"
         android:padding="20dp"
-        android:textColorHint="202020"
+        android:textColorHint="#202020"
         android:inputType="textPassword"/>
 
     <com.google.android.material.button.MaterialButton
