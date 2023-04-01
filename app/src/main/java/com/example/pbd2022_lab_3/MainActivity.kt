@@ -16,15 +16,15 @@ class MainActivity : AppCompatActivity(), HomeFragment.MyFragmentListener {
         setContentView(R.layout.activity_main)
         val sharedPreferences = this.getSharedPreferences("userId", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("userId", "2")
+        editor.putString("userId", "1")
         editor.apply()
 
         replaceFragment(HomeFragment())
     }
 
-    override fun onMyVariableSet(myVariable: Int){
-        val coinCount: TextView = findViewById(R.id.coins)
-        coinCount.text = myVariable.toString()
+    override fun onMyVariableSet(myVariable: String){
+        val coinCount: TextView = findViewById(R.id.username)
+        coinCount.text = myVariable
         Log.d("MainActivity", "onMyVariableSet: $myVariable")
 
     }

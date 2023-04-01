@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,6 +21,7 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var listener: MyFragmentListener? = null
     private var coins: Int = 0
+    private var poslji = "User not found"
     private var achievements: Array<Int> = arrayOf(0)
     private var recyclerView: RecyclerView? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
@@ -29,7 +32,16 @@ class HomeFragment : Fragment() {
     }
 
     interface MyFragmentListener {
-        fun onMyVariableSet(myVariable: Int)
+        fun onMyVariableSet(myVariable: String)
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            listener = context as MyFragmentListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement OnDataPass")
+        }
     }
 
     override fun onCreateView(
@@ -49,19 +61,37 @@ class HomeFragment : Fragment() {
         if(don != null) {
             coins = don.noOfCoins
             achievements= don.achievements
+            poslji = don.username.plus(" ").plus(coins.toString()).plus(" 🪙")
+
         }
-        listener?.onMyVariableSet(coins)
+
+        listener?.onMyVariableSet(poslji)
 
 
 
         val kri = don?.bloodDon?.size
         val zob = don?.dentist?.size
         val svit = don?.svit?.size
+        val doStopnje = 100 - coins % 100
 
+        val doStopnjeText = view.findViewById<TextView>(R.id.textViewCoin)
         val kriCount = view.findViewById<TextView>(R.id.kdCounter)
         val zobCount = view.findViewById<TextView>(R.id.zobCounter)
         val svitCount = view.findViewById<TextView>(R.id.svitCounter)
+        val progress = view.findViewById<ProgressBar>(R.id.progressBar)
+        val prog = coins % 100
+        if(prog < 30) {
+            progress.progressTintList = ContextCompat.getColorStateList(view.context, R.color.red)
+        }
+        else if(prog < 60) {
+            progress.progressTintList = ContextCompat.getColorStateList(view.context, R.color.blue)
+        }
+        else {
+            progress.progressTintList = ContextCompat.getColorStateList(view.context, R.color.green)
+        }
 
+        progress.progress = prog
+        doStopnjeText.text = doStopnje.toString()
         kriCount.text = kri.toString().plus(" X")
         zobCount.text = zob.toString().plus(" X")
         svitCount.text = svit.toString().plus(" X")

@@ -52,20 +52,11 @@
 
 
         android:textColor="@color/darkGrey"
-        android:textSize="16sp"
+        android:textSize="12sp"
         tools:layout_editor_absoluteX="171dp"
         tools:layout_editor_absoluteY="34dp" />
 
-    <TextView
-        android:id="@+id/coins"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/Coins"
-        android:textColor="@color/darkGrey"
-        android:textSize="16sp"
-        tools:layout_editor_absoluteX="328dp"
-        tools:layout_editor_absoluteY="34dp" />
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.Toolbar>
