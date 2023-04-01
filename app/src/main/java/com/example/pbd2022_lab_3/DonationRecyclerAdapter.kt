@@ -15,9 +15,19 @@ import com.google.gson.Gson
 
 class DonationRecyclerAdapter(context: Context): RecyclerView.Adapter<DonationRecyclerAdapter.CardViewHolder>(){
 
-    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("blood_donation", Context.MODE_PRIVATE)
-    private var keys: List<String>? = sharedPreferences?.all?.keys?.toList()
+    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("userId", Context.MODE_PRIVATE)
+    private var sharedPreferencesAll:SharedPreferences? = context.getSharedPreferences("all", Context.MODE_PRIVATE)
 
+    val user = sharedPreferences?.getString("userId", "0")
+    val donationsToJson = returnDataFile("all", sharedPreferencesAll!!)
+
+
+    val don: ArrayList<Activity>? = when(user) {
+        "1" -> donationsToJson?.don1
+        "2" -> donationsToJson?.don2
+        "3" -> donationsToJson?.don3
+        else -> null
+    }
 
     inner class CardViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         var imageView:ImageView? = null
@@ -26,8 +36,7 @@ class DonationRecyclerAdapter(context: Context): RecyclerView.Adapter<DonationRe
 
             imageView = itemView?.findViewById(R.id.item_image)
             date = itemView?.findViewById(R.id.item_date)
-            Log.d("hello", "hello")
-            Log.d("sharedPref", keys.toString())
+            Log.d("TAG", don?.get(1)?.date.toString())
         }
     }
 
@@ -39,33 +48,30 @@ class DonationRecyclerAdapter(context: Context): RecyclerView.Adapter<DonationRe
         return CardViewHolder(view)
 
     }
-
-    private fun returnDonationDataClass(key: String) :DonationDataClass {
-
-        val json = sharedPreferences?.getString(key, null)
-        val gson = Gson()
-        return gson.fromJson(json, DonationDataClass::class.java)
-    }
-
     override fun onBindViewHolder(viewHolder: CardViewHolder, position: Int) {
 
-        val donationData = returnDonationDataClass(keys!![position])
+        //val donationData = returnDonationDataClass(keys!![position])
+        if(don != null) {
+            val currentView:Activity = don[position]
+            val encodedImage = currentView.image
+            if(encodedImage.equals("")) {
+                viewHolder.imageView?.setImageResource(R.drawable.drop_shape)
+            } else {
+                val decodedBytes = Base64.decode(encodedImage, Base64.DEFAULT)
+                val decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                viewHolder.imageView?.setImageBitmap(decodedBitmap)
+            }
 
-        val encodedImage = donationData.image
-        if(encodedImage.equals("placeholder")) {
-            viewHolder.imageView?.setImageResource(R.drawable.drop_shape)
-        } else {
-            val decodedBytes = Base64.decode(encodedImage, Base64.DEFAULT)
-            val decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-            viewHolder.imageView?.setImageBitmap(decodedBitmap)
+            viewHolder.date?.text = currentView.date
+
         }
-        Log.d("hereWeAre", donationData.toString())
-        viewHolder.date?.text = donationData.date
     }
+
+
 
 
     // get the number of elements
     override fun getItemCount(): Int {
-        return keys!!.size
+        return don!!.size
     }
 }

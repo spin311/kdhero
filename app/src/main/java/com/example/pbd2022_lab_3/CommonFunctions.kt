@@ -1,6 +1,10 @@
 package com.example.pbd2022_lab_3
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.icu.util.Calendar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 fun setDay(day:Int) : String {
     var daytext = "" + day + "."
@@ -25,6 +29,12 @@ fun setMonth(month: Int) : String {
         11 -> monthText = "December"
     }
     return monthText
+}
+
+fun returnDataFile(key: String, sharedPreferences:SharedPreferences): DataFile? {
+    val json = sharedPreferences?.getString(key, null)
+    val gson = Gson()
+    return gson.fromJson(json, DataFile::class.java)
 }
 
 fun setLabel(calendar: Calendar):String {
