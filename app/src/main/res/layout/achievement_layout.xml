@@ -36,7 +36,7 @@
             android:layout_toEndOf="@+id/item_image"
             android:layout_toRightOf="@+id/item_image"
             android:layout_alignParentTop="true"
-            android:textSize="30sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:layout_width="match_parent"
