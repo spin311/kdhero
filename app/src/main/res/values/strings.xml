@@ -1,7 +1,19 @@
 <resources>
+    <string name="app_name">Health app</string>
     <string name="app_name">Zdravko</string>
     <string name="hello_blank_fragment">Hello</string>
     <string name="action_settings">Settings</string>
+    <string name="tab1_title">Sky Observations</string>
+    <string name="tab2_title">Planet Wiki</string>
+    <string name="tab3_title">Notes</string>
+    <string name="blood_description">V Sloveniji potrebujemo v povprečju okoli 300 do 350 krvodajalcev na dan, da bolnikom zagotovimo potrebno količino krvi.\n\nPostani krvodajalec tudi ti ter s tem zbiraj kovančke</string>
+    <string name="blood_png">🩸</string>
+    <string name="donate">Krvodajalstvo 🩸</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="notes_text">Our citizen scientist should be able to put notes here</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="username">Uporabnik</string>
     <string name="Coins">🪙 __</string>
     <string name="appName">Zdravko</string>
