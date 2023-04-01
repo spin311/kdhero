@@ -16,8 +16,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class NewBloodDonationFragment : Fragment() {
@@ -25,6 +27,9 @@ class NewBloodDonationFragment : Fragment() {
     var setDate: TextView? = null
     var bitmap: Bitmap? = null
     var sharedPreferences:SharedPreferences? = null
+    var sharedPreferencesJson:SharedPreferences? = null
+    var don:ArrayList<com.example.pbd2022_lab_3.Activity>? = null
+    var user:String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,20 +45,33 @@ class NewBloodDonationFragment : Fragment() {
         }
         setDate!!.text = getTodaysDate()
         setDateLabel(view)
-
-        sharedPreferences = view?.context?.getSharedPreferences("blood_donation", Context.MODE_PRIVATE)
-        var editor = sharedPreferences?.edit()
-
+        //key, value
+        sharedPreferences = view?.context?.getSharedPreferences("userId", Context.MODE_PRIVATE)
         saveButton.setOnClickListener {
-            var donationData: DonationDataClass? = null
+            var donationData: com.example.pbd2022_lab_3.Activity? = null
             if(bitmap != null) {
-                 donationData = DonationDataClass(setDate?.text.toString(), compressImage().toString())
+                 donationData = Activity(setDate?.text.toString(), compressImage().toString())
             } else {
-                donationData = DonationDataClass(setDate?.text.toString(), "placeholder")
+                donationData = Activity(setDate?.text.toString(), "")
             }
-            val json = Gson().toJson(donationData)
-            editor?.putString(setDate?.text.toString(), json)
-            editor?.apply()
+
+            user = sharedPreferences?.getString("userId", "0")
+            sharedPreferencesJson = view?.context?.getSharedPreferences("all", Context.MODE_PRIVATE)
+            // dobim vse podatke
+            val dataFile = returnDataFile("all", sharedPreferencesJson!!)
+            val editor = sharedPreferencesJson?.edit()
+
+
+            if(duplicateDate(setDate?.text.toString())) {
+                Toast.makeText(view.context, "You already have a donation on this date", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            when(user) {
+                "1" -> dataFile?.don1?.add(donationData)
+                "2" -> dataFile?.don2?.add(donationData)
+                "3" -> dataFile?.don3?.add(donationData)
+            }
 
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_activity, BloodMainFragment())?.commit()
 
@@ -82,6 +100,22 @@ class NewBloodDonationFragment : Fragment() {
             DatePickerDialog(view.context, datePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
         Log.d("formatDate", format)
+    }
+
+    // checks if you try to save to do list with the same date as one that is already saved
+    private fun duplicateDate(date: String) : Boolean {
+
+        // pogledas v userjevem shared preferencu
+
+        don?.let {
+            for(i in it) {
+                if(i.date.equals(date)) {
+                    return true
+                }
+            }
+        }
+        return false
+
     }
 
     // open camera when user wants to change the image
