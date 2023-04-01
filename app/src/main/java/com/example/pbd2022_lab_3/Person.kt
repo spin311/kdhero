@@ -10,6 +10,6 @@ class Person (
     val bloodDon: Array<Activity>,
     val dentist: Array<Activity>,
     val svit: Array<Activity>,
-    val achievements: Array<Int> // ids of achievements that the person has achieved
+    var achievements: Array<Int> // ids of achievements that the person has achieved
 )  {
 }

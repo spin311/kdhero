@@ -1,16 +1,18 @@
 package com.example.pbd2022_lab_3
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pbd2022_lab_3.RecyclerAdapter.CardViewHolder
 
 
-class RecyclerAdapter : RecyclerView.Adapter<CardViewHolder?>() {
+class RecyclerAdapter(private val achievements: Array<Int>) : RecyclerView.Adapter<CardViewHolder?>() {
     private val titles = arrayOf(
         "Zdravi Influencer",
         "Raziskovalec",
@@ -54,11 +56,19 @@ class RecyclerAdapter : RecyclerView.Adapter<CardViewHolder?>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CardViewHolder {
         // have a CardViewHolder created when needed
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.achievement_layout, viewGroup, false)
+
+
         return CardViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: CardViewHolder, i: Int) {
         // TODO: set the image, title, and details data
+
+        if(i !in achievements) {
+            viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.disabled))
+            viewHolder.itemView.isClickable = false
+            viewHolder.itemView.alpha = 0.7f
+        }
         viewHolder.itemImage?.setImageResource(images[i])
         viewHolder.itemTitle?.text = titles[i]
         viewHolder.itemDetail?.text = details[i]

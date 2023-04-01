@@ -1,16 +1,13 @@
 <resources>
-    <string name="app_name">Nightsky Observer</string>
+    <string name="app_name">Zdravko</string>
+    <string name="hello_blank_fragment">Hello</string>
     <string name="action_settings">Settings</string>
-    <string name="tab1_title">Sky Observations</string>
-    <string name="tab2_title">Planet Wiki</string>
-    <string name="tab3_title">Notes</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="username">Uporabnik</string>
-    <string name="Coins">__ X 🪙</string>
+    <string name="Coins">🪙 __</string>
     <string name="appName">Zdravko</string>
-    <string name="next_lvl">__ 🪙 Za naslednjo stopnjo</string>
+    <string name="next_lvl">🪙 __  Za naslednjo stopnjo</string>
     <string name="Krvodajalstvo">Krvodajalstvo</string>
-    <string name="Svit">Program Svit</string>
+    <string name="Svit">Program svit</string>
     <string name="Zobozdravstvo">Zobozdravstvo</string>
     <string name="visit_counter">__ X</string>
     <string name="blood_png">🩸</string>
