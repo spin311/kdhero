@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pbd2022lab3">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.pbd2022_lab_3.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
