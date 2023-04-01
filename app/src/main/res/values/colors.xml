@@ -14,4 +14,9 @@
     <color name="blue">#99E6FC</color>
     <color name="red">#F2637E</color>
 
+    <color name="navy">#03045E</color>
+    <color name="cold">#90E0EF</color>
+    <color name="space">#CAF0F8</color>
+    <color name="dark_red">#950101</color>
+    <color name="light_brown">#e4cfa0</color>
 </resources>
