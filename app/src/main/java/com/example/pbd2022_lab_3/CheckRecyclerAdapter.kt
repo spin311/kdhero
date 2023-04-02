@@ -11,23 +11,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 
 class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecyclerAdapter.CardViewHolder>(){
 
-    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("userId", Context.MODE_PRIVATE)
-    private var sharedPreferencesAll:SharedPreferences? = context.getSharedPreferences("all", Context.MODE_PRIVATE)
+    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("current_user", Context.MODE_PRIVATE)
 
-    val user = sharedPreferences?.getString("userId", "0")
-    val donationsToJson = returnDataFile("all", sharedPreferencesAll!!)
-
-
-    val don: ArrayList<Activity>? = when(user) {
-        "1" -> donationsToJson?.svit1
-        "2" -> donationsToJson?.svit2
-        "3" -> donationsToJson?.svit3
-        else -> null
-    }
+    var user = sharedPreferences?.getString("current_user", "0")
+    val databaseRef = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app").reference
+    var userObject = databaseRef.child("users").child(user.toString())
 
     inner class CardViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         var imageView:ImageView? = null
@@ -36,7 +32,19 @@ class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecycler
 
             imageView = itemView?.findViewById(R.id.item_image)
             date = itemView?.findViewById(R.id.item_date)
-            Log.d("TAG", don?.get(1)?.date.toString())
+
+
+
+
+            userObject.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    user = dataSnapshot.getValue(Person::class.java)?.toString()
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle errors here
+                }
+            })
         }
     }
 
@@ -53,8 +61,8 @@ class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecycler
     override fun onBindViewHolder(viewHolder: CardViewHolder, position: Int) {
 
         //val donationData = returnDonationDataClass(keys!![position])
-        if(don != null) {
-            val currentView:Activity = don[position]
+        if(user != null) {
+            val currentView:Activity = user?.svit[position]
             val encodedImage = currentView.image
             if(encodedImage.equals("")) {
                 viewHolder.imageView?.setImageResource(R.drawable.svit)
@@ -71,6 +79,6 @@ class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecycler
 
     // get the number of elements
     override fun getItemCount(): Int {
-        return don!!.size
+        return 3
     }
 }

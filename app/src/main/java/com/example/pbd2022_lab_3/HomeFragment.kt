@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     private var listener: MyFragmentListener? = null
     private var coins: Int = 0
     private var poslji = "User not found"
-    private var achievements: ArrayList<Int>? = null
+    private var achievements: ArrayList<Int> = arrayListOf(0)
     private var recyclerView: RecyclerView? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<*>? = null
@@ -65,6 +65,11 @@ class HomeFragment : Fragment() {
         val userObject = databaseRef.child("users").child(user.toString())
 
 
+
+        var kri = 0
+        var zob = 0
+        var svit = 0
+
         userObject.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(Person::class.java)
@@ -73,6 +78,9 @@ class HomeFragment : Fragment() {
                     coins = user.noOfCoins!!
                     achievements= user.achievements!!
                     poslji = user.username.plus(" ").plus(coins.toString()).plus(" 🪙")
+                    kri = user.bloodDon?.size ?: 0
+                    zob = user.dentist?.size ?: 0
+                    svit = user.svit?.size ?: 0
                 }
                 // Use the age here
             }
@@ -81,20 +89,9 @@ class HomeFragment : Fragment() {
                 // Handle errors here
             }
         })
-        if(user != null) {
-            coins = userObject.child("noOfCoins")
-            achievements= user.achievements!!
-            poslji = user.username.plus(" ").plus(coins.toString()).plus(" 🪙")
-
-        }
 
         listener?.onMyVariableSet(poslji)
 
-
-
-        val kri = don?.bloodDon?.size
-        val zob = don?.dentist?.size
-        val svit = don?.svit?.size
         val doStopnje = 100 - coins % 100
         val bloodBtn = view.findViewById<TextView>(R.id.kdBtn)
 
