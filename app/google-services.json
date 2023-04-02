@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "940036899480",
+    "project_id": "zdravko-7bddd",
+    "storage_bucket": "zdravko-7bddd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940036899480:android:bbf28e6518e4aea5f906ed",
+        "android_client_info": {
+          "package_name": "com.example.pbd2022_lab_3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940036899480-vc072p8dtu6cm68vjismrjqorou9aalc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA7pwR9tKvK9VSNmnPLmDDB9DP7HHbPUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "940036899480-vc072p8dtu6cm68vjismrjqorou9aalc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
