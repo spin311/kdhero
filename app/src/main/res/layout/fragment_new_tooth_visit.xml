@@ -7,116 +7,132 @@
     android:background="@color/blue"
     tools:context=".NewToothVisitFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:text="Nov zobozdravstveni pregled"
-            android:textColor="@color/darkGrey"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView6"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="100dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="Vrednost: 150 🪙"
-            android:textColor="@color/darkGrey"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <TextView
-            android:id="@+id/donation_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="TextView"
-            android:textColor="@color/navy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <ImageView
-            android:id="@+id/donation_image"
-            android:layout_width="145dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="60dp"
-            android:onClick="addImage"
-            android:outlineAmbientShadowColor="@color/darkGrey"
-            android:src="@drawable/tooth"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/donation_date" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:text="Dodaj sliko"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/donation_date" />
-
-        />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/donation_image">
+            android:layout_height="match_parent"
+            android:background="@color/blue"
+            >
 
             <TextView
-                android:id="@+id/potrditvena_koda"
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Nov zobozdravstveni pregled"
+                android:textColor="@color/darkGrey"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/vrednost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:gravity="center"
+                android:text="Vrednost: 150 🪙"
+                android:textSize="20dp"
+                android:textColor="@color/darkGrey"
+                android:layout_below="@+id/title"
+                />
+
+            <TextView
+                android:id="@+id/donation_date_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/vrednost"
+                android:text="Datum pregleda"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/navy"/>
+
+            <TextView
+                android:id="@+id/donation_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/donation_date_text"
+                android:text="TextView"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/navy"/>
+
+            <ImageView
+                android:id="@+id/donation_image"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/donation_date"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:outlineAmbientShadowColor="@color/darkGrey"
+                android:src="@drawable/tooth"/>
+
+            <TextView
+                android:id="@+id/bonus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/donation_image"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:text="Pridobi dodatne kovančke!"
+                android:textSize="20dp"
+                android:textColor="@color/navy"/>
+
+            <Button
+                android:id="@+id/dodaj_sliko_button"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:text="Potrditvena koda:"
-                android:textColor="@color/navy" />
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="@color/DeepDarkBlue"
+                android:layout_below="@+id/bonus"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="Dodaj sliko"
+                android:onClick="addImage"/>
 
             <EditText
                 android:id="@+id/potrditvena_koda_vnos"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/dodaj_sliko_button"
+                android:textAlignment="center"
+                android:gravity="center"
                 android:layout_weight="1"
-                android:hint="Vnesi kodo"
+                android:layout_marginRight="80dp"
+                android:layout_marginLeft="80dp"
+                android:textSize="20dp"
+                android:hint="Potrditvena koda"
                 android:textColor="@color/navy" />
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/button_custom"
-            android:text="Save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/button_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/button_custom"
+                android:layout_below="@+id/potrditvena_koda_vnos"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:text="Save" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+    </ScrollView>
 </FrameLayout>
