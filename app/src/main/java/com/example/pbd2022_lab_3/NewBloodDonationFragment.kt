@@ -17,6 +17,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -38,7 +41,12 @@ class NewBloodDonationFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_new_blood_donation, container, false)
         setDate = view.findViewById(R.id.donation_date)
         imageView = view.findViewById(R.id.donation_image) as ImageView
+
         var saveButton = view.findViewById<Button>(R.id.button_save)
+
+        // firebase
+         var database: DatabaseReference = Firebase.database.reference
+        database.child("users").child("user1").setValue(DataFile.user1)
 
         imageView?.setOnClickListener {
             addImage()
