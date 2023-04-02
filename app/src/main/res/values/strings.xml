@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Zdravko</string>
-    <string name="app_name">Health app</string>
     <string name="action_settings">Settings</string>
     <string name="tab1_title">Sky Observations</string>
     <string name="tab2_title">Planet Wiki</string>

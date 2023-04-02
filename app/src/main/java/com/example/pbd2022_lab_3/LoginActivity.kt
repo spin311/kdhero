@@ -24,17 +24,17 @@ class LoginActivity : AppCompatActivity() {
         password = findViewById<TextView>(R.id.password)
         button =  findViewById(R.id.lgn_btn)
 
-        // admin and admin
-        button.setOnClickListener {
-            if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-                // correct
-                Toast.makeText(this, "LOGIN SUCCESFUL", Toast.LENGTH_SHORT).show()
-            } else {
-                // incorrect
-                Toast.makeText(this, "LOGIN FAILED", Toast.LENGTH_SHORT).show()
-
-            }
-        }
+        // after firebase
+//        button.setOnClickListener {
+//            if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+//                // correct
+//                Toast.makeText(this, "LOGIN SUCCESFUL", Toast.LENGTH_SHORT).show()
+//            } else {
+//                // incorrect
+//                Toast.makeText(this, "LOGIN FAILED", Toast.LENGTH_SHORT).show()
+//
+//            }
+//        }
     }
     fun login(view: View?) {
         val intent = Intent(this, MainActivity::class.java)
