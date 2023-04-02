@@ -13,8 +13,10 @@
     <color name="darkGrey">#2D2727</color>
     <color name="darkBlue">#63D8F2</color>
     <color name="blue">#99E6FC</color>
+    <color name="teal_700">#FF018786</color>
     <color name="red">#F2637E</color>
-
+    <color name="disabled">#3F3B3B</color>
+    <color name="green">#81C784</color>
     <color name="navy">#03045E</color>
     <color name="cold">#90E0EF</color>
     <color name="space">#CAF0F8</color>

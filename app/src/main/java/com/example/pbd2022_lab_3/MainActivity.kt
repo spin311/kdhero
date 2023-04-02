@@ -3,12 +3,14 @@ package com.example.pbd2022_lab_3
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.gson.Gson
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),  HomeFragment.MyFragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,14 +34,21 @@ class MainActivity : AppCompatActivity() {
         var editor = sharedPreferences.edit()
         editor.putString("userId", "1")
         editor.apply()
-        replaceFragment(BloodMainFragment())
+        replaceFragment(HomeFragment())
+
+    }
+
+    override fun onMyVariableSet(myVariable: String){
+        val coinCount: TextView = findViewById<TextView>(R.id.username)
+        coinCount.text = myVariable
+        Log.d("MainActivity", "onMyVariableSet: $myVariable")
 
     }
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_activity, fragment)
+        fragmentTransaction.replace(R.id.activityMain, fragment)
         fragmentTransaction.commit()
     }
 }

@@ -9,9 +9,7 @@
     <string name="donate">Krvodajalstvo 🩸</string>
 
     <!-- Strings used for fragments for navigation -->
-    <string name="notes_text">Our citizen scientist should be able to put notes here</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_in_text">Prijavi se!</string>
     <string name="register_text">Registriraj se!</string>
     <string name="reg_name_hint">Uporabniško ime</string>
@@ -28,4 +26,25 @@
     <string name="genderPrompt">Spol</string>
     <string name="sign_in">Prijavi se!</string>
     <string name="doRegText">Še nimaš uporabniškega računa?\n Registriraj se!</string>
+
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="notes_text">Our citizen scientist should be able to put notes here</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Uporabnik</string>
+    <string name="Coins">🪙 __</string>
+    <string name="appName">Zdravko</string>
+    <string name="next_lvl"> 🪙 Za naslednjo stopnjo</string>
+    <string name="Krvodajalstvo">Krvodajalstvo</string>
+    <string name="Svit">Program svit</string>
+    <string name="Zobozdravstvo">Zobozdravstvo</string>
+    <string name="visit_counter">__ X</string>
+    <string name="cancer_png">♋</string>
+    <string name="tooth_png">🦷</string>
+    <string name="achievements">Dosežki</string>
+    <string name="svitPregled">Nov pregled svit</string>
+    <string name="svit_description">Program Svit je preventivni zdravstveni program, ki je namenjen preprečevanju in zgodnjemu odkrivanju predrakavih sprememb in raka na debelem črevesu in danki. \nPridružite se programu ter s tem zbirajte kovančke!</string>
+    <string name="svitIme">Program svit</string>
+    <string name="ToothDescription">Kako zdrav bo naš nasmeh, je v prvi vrsti odvisno od nas samih, ki bomo po svojih najboljših močeh skrbeli za svoje zdravje in pravočasno poiskali pomoč zobozdravnika.\n Obiščite zobozdravnike ter hkrati pridobite kovance!</string>
 </resources>

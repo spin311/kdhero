@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 
-class NewBloodDonationFragment : Fragment() {
+class NewToothVisitFragment : Fragment() {
     var imageView: ImageView? = null
     var setDate: TextView? = null
     var bitmap: Bitmap? = null
@@ -35,7 +35,7 @@ class NewBloodDonationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_new_blood_donation, container, false)
+        val view =  inflater.inflate(R.layout.fragment_new_tooth_visit, container, false)
         setDate = view.findViewById(R.id.donation_date)
         imageView = view.findViewById(R.id.donation_image) as ImageView
         var saveButton = view.findViewById<Button>(R.id.button_save)
@@ -63,17 +63,17 @@ class NewBloodDonationFragment : Fragment() {
 
 
             if(duplicateDate(setDate?.text.toString())) {
-                Toast.makeText(view.context, "You already have a donation on this date", Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context, "You already have a visit on this date", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
             when(user) {
-                "1" -> dataFile?.don1?.add(donationData)
-                "2" -> dataFile?.don2?.add(donationData)
-                "3" -> dataFile?.don3?.add(donationData)
+                "1" -> dataFile?.dent1?.add(donationData)
+                "2" -> dataFile?.dent2?.add(donationData)
+                "3" -> dataFile?.dent3?.add(donationData)
             }
 
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.activityMain, BloodMainFragment())?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.activityMain, ToothFragment())?.commit()
 
         }
         return view

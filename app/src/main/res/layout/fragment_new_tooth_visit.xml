@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_brown"
-    tools:context=".NewBloodDonationFragment">
+    android:background="@color/blue"
+    tools:context=".NewToothVisitFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,9 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            android:text="Donacija krvi"
-            android:textSize="30dp"
+            android:text="Nov zobozdravstveni pregled"
             android:textColor="@color/darkGrey"
+            android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,14 +27,14 @@
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:background="@color/white"
-            android:layout_marginEnd="100dp"
-            android:layout_marginStart="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/darkGrey"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="28dp"
-            android:text="Vrednost: 200 🪙"
+            android:layout_marginEnd="100dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="Vrednost: 150 🪙"
+            android:textColor="@color/darkGrey"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -46,42 +46,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:textColor="@color/red"
             android:text="TextView"
+            android:textColor="@color/navy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <ImageView
-            android:outlineAmbientShadowColor="@color/darkGrey"
+            android:id="@+id/donation_image"
             android:layout_width="145dp"
             android:layout_height="140dp"
             android:layout_marginTop="60dp"
-            android:id="@+id/donation_image"
-            android:src="@drawable/drop_shape"
             android:onClick="addImage"
+            android:outlineAmbientShadowColor="@color/darkGrey"
+            android:src="@drawable/tooth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/donation_date" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="120dp"
             android:text="Dodaj sliko"
-            android:textFontWeight="60"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
+            android:textSize="22dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/donation_date" />
 
         />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_margin="20dp"
             android:layout_marginTop="40dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,18 +92,18 @@
             <TextView
                 android:id="@+id/potrditvena_koda"
                 android:layout_width="wrap_content"
-                android:textColor="@color/red"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                android:text="Potrditvena koda:" />
+                android:text="Potrditvena koda:"
+                android:textColor="@color/navy" />
 
             <EditText
                 android:id="@+id/potrditvena_koda_vnos"
                 android:layout_width="wrap_content"
-                android:textColor="@color/red"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Vnesi kodo" />
+                android:hint="Vnesi kodo"
+                android:textColor="@color/navy" />
         </LinearLayout>
 
         <Button

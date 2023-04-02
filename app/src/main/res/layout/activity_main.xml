@@ -1,10 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityMain"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/main_activity"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:orientation="horizontal">
+
+            <ImageView
+
+                android:layout_width="26sp"
+                android:layout_height="26sp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/healthcare" />
+
+            <TextView
+                android:id="@+id/appName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/appName"
+                android:textColor="@color/darkGrey"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:drawablePadding="8dp"
+
+                />
+
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:layout_marginStart="22dp"
+
+
+                android:textColor="@color/darkGrey"
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="171dp"
+                tools:layout_editor_absoluteY="34dp" />
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.Toolbar>
+
+
+</RelativeLayout>
