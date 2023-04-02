@@ -73,7 +73,30 @@ class HomeFragment : Fragment() {
         val zob = don?.dentist?.size
         val svit = don?.svit?.size
         val doStopnje = 100 - coins % 100
+        val bloodBtn = view.findViewById<TextView>(R.id.kdBtn)
 
+        bloodBtn.setOnClickListener {
+            val bloodFragment = BloodMainFragment()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.activityMain, bloodFragment)
+            transaction.commit()
+        }
+        val toothBtn = view.findViewById<TextView>(R.id.zobBtn)
+
+//        toothBtn.setOnClickListener {
+//            val toothFragment = ToothMainFragment()
+//            val transaction = parentFragmentManager.beginTransaction()
+//            transaction.replace(R.id.activityMain, toothFragment)
+//            transaction.commit()
+//        }
+        val svitBtn = view.findViewById<TextView>(R.id.svitBtn)
+
+        svitBtn.setOnClickListener {
+            val svitFragment = SvitFragment()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.activityMain, svitFragment)
+            transaction.commit()
+        }
         val doStopnjeText = view.findViewById<TextView>(R.id.textViewCoin)
         val kriCount = view.findViewById<TextView>(R.id.kdCounter)
         val zobCount = view.findViewById<TextView>(R.id.zobCounter)
@@ -103,5 +126,6 @@ class HomeFragment : Fragment() {
         recyclerView?.adapter = adapter
         return view
     }
+
 
 }

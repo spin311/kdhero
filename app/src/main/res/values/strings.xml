@@ -1,13 +1,10 @@
 <resources>
-    <string name="app_name">Health app</string>
     <string name="app_name">Zdravko</string>
-    <string name="hello_blank_fragment">Hello</string>
     <string name="action_settings">Settings</string>
     <string name="tab1_title">Sky Observations</string>
     <string name="tab2_title">Planet Wiki</string>
     <string name="tab3_title">Notes</string>
     <string name="blood_description">V Sloveniji potrebujemo v povprečju okoli 300 do 350 krvodajalcev na dan, da bolnikom zagotovimo potrebno količino krvi.\n\nPostani krvodajalec tudi ti ter s tem zbiraj kovančke</string>
-    <string name="blood_png">🩸</string>
     <string name="donate">Krvodajalstvo 🩸</string>
 
     <!-- Strings used for fragments for navigation -->
@@ -26,4 +23,7 @@
     <string name="cancer_png">♋</string>
     <string name="tooth_png">🦷</string>
     <string name="achievements">Dosežki</string>
+    <string name="svitPregled">Nov pregled svit</string>
+    <string name="svit_description">Program Svit je preventivni zdravstveni program, ki je namenjen preprečevanju in zgodnjemu odkrivanju predrakavih sprememb in raka na debelem črevesu in danki. \nPridružite se programu ter s tem zbirajte kovančke!</string>
+    <string name="svitIme">Program svit</string>
 </resources>
