@@ -1,6 +1,9 @@
 package com.example.pbd2022_lab_3
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,10 +14,9 @@ import com.google.firebase.database.FirebaseDatabase
 import java.io.FileInputStream
 
 
-class MainActivity : AppCompatActivity() {
-
-    var sharedPreferences:SharedPreferences? = null
 class MainActivity : AppCompatActivity(),  HomeFragment.MyFragmentListener {
+
+    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,14 +26,7 @@ class MainActivity : AppCompatActivity(),  HomeFragment.MyFragmentListener {
 
         //TODO("prek logina oziroma registra moramo pridobiti username")
         editor?.putString("current_user", "jan33")?.apply()
-        val myRef = database.getReference("")
 
-        val sharedPreferences = this.getSharedPreferences("userId", Context.MODE_PRIVATE)
-
-        // tole je za prvega uporabnika
-        var editor = sharedPreferences.edit()
-        editor.putString("userId", "1")
-        editor.apply()
         replaceFragment(HomeFragment())
 
     }
@@ -41,14 +36,13 @@ class MainActivity : AppCompatActivity(),  HomeFragment.MyFragmentListener {
         coinCount.text = myVariable
         Log.d("MainActivity", "onMyVariableSet: $myVariable")
 
-        //replaceFragment(BloodMainFragment())
 
     }
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_activity, fragment)
+        fragmentTransaction.replace(R.id.activityMain, fragment)
         fragmentTransaction.commit()
     }
 }

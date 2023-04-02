@@ -68,7 +68,7 @@ class RegistrationActivity : AppCompatActivity() {
             } else {
                 genderDb = "f"
             }
-            var regUser = Person(username!!, password!!, intAge, email!!, genderDb, 0, ArrayList<Activity>(), ArrayList<Activity>(), ArrayList<Activity>(), ArrayList<Int>())
+            //var regUser = Person(username!!, password!!, intAge, email!!, genderDb, 0, ArrayList<Activity>(), ArrayList<Activity>(), ArrayList<Activity>(), ArrayList<Int>())
             // TO DO save user to database
             Toast.makeText(this, "Registracija uspešna", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)

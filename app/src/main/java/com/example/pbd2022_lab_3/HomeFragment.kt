@@ -1,6 +1,7 @@
 package com.example.pbd2022_lab_3
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 /**
  * A simple [Fragment] subclass.
@@ -22,10 +27,12 @@ class HomeFragment : Fragment() {
     private var listener: MyFragmentListener? = null
     private var coins: Int = 0
     private var poslji = "User not found"
-    private var achievements: ArrayList<Int> = arrayListOf(0)
+    private var achievements: ArrayList<Int>? = null
     private var recyclerView: RecyclerView? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<*>? = null
+
+    private var sharedPreferences:SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,18 +57,34 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         // Inflate the layout for this fragment
-        val sharedPref = view?.context?.getSharedPreferences("userId", Context.MODE_PRIVATE)
-        val user = sharedPref?.getString("userId", "0")
-        val don = when(user) {
-            "1" -> DataFile.user1
-            "2" -> DataFile.user2
-            "3" -> DataFile.user3
-            else -> null
-        }
-        if(don != null) {
-            coins = don.noOfCoins
-            achievements= don.achievements
-            poslji = don.username.plus(" ").plus(coins.toString()).plus(" 🪙")
+        sharedPreferences = activity?.getSharedPreferences("current_user", Context.MODE_PRIVATE)
+        val user = sharedPreferences?.getString("current_user", "0")
+
+
+        val databaseRef = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app").reference
+        val userObject = databaseRef.child("users").child(user.toString())
+
+
+        userObject.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val user = dataSnapshot.getValue(Person::class.java)
+
+                if (user != null) {
+                    coins = user.noOfCoins!!
+                    achievements= user.achievements!!
+                    poslji = user.username.plus(" ").plus(coins.toString()).plus(" 🪙")
+                }
+                // Use the age here
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle errors here
+            }
+        })
+        if(user != null) {
+            coins = userObject.child("noOfCoins")
+            achievements= user.achievements!!
+            poslji = user.username.plus(" ").plus(coins.toString()).plus(" 🪙")
 
         }
 
@@ -122,6 +145,7 @@ class HomeFragment : Fragment() {
         recyclerView = view.findViewById(R.id.achievementsRecyclerView)
         layoutManager = LinearLayoutManager(view.context)
         recyclerView?.layoutManager = layoutManager
+
         adapter = RecyclerAdapter(achievements)
         recyclerView?.adapter = adapter
         return view

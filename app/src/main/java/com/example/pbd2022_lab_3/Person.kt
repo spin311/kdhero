@@ -10,7 +10,7 @@ class Person(
     val bloodDon: ArrayList<Activity>? = null,
     val dentist: ArrayList<Activity>? = null,
     val svit: ArrayList<Activity>? = null,
-    val achievements: ArrayList<Activity>? = null // ids of achievements that the person has achieved
+    val achievements: ArrayList<Int>? = null // ids of achievements that the person has achieved
 )  {
 
 }
