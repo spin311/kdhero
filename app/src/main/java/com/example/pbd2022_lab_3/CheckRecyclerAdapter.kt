@@ -21,10 +21,11 @@ class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecycler
 
     private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("current_user", Context.MODE_PRIVATE)
 
-    var user = sharedPreferences?.getString("current_user", "0")
+    var userNow = sharedPreferences?.getString("current_user", "0")
     val databaseRef = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app").reference
-    var userObject = databaseRef.child("users").child(user.toString())
+    var userObject = databaseRef.child("users").child(userNow.toString())
 
+    var user:Person? = null
     inner class CardViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         var imageView:ImageView? = null
         var date: TextView? = null
@@ -38,7 +39,7 @@ class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecycler
 
             userObject.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    user = dataSnapshot.getValue(Person::class.java)?.toString()
+                    user = dataSnapshot.getValue(Person::class.java)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -62,7 +63,7 @@ class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecycler
 
         //val donationData = returnDonationDataClass(keys!![position])
         if(user != null) {
-            val currentView:Activity = user?.svit[position]
+            val currentView:Activity = user?.svit!![position]
             val encodedImage = currentView.image
             if(encodedImage.equals("")) {
                 viewHolder.imageView?.setImageResource(R.drawable.svit)
@@ -79,6 +80,6 @@ class CheckRecyclerAdapter(context: Context): RecyclerView.Adapter<CheckRecycler
 
     // get the number of elements
     override fun getItemCount(): Int {
-        return 3
+        return user?.svit!!.size
     }
 }

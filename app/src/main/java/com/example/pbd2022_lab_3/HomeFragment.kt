@@ -58,11 +58,11 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         // Inflate the layout for this fragment
         sharedPreferences = activity?.getSharedPreferences("current_user", Context.MODE_PRIVATE)
-        val user = sharedPreferences?.getString("current_user", "0")
+        val userName = sharedPreferences?.getString("current_user", "0")
 
 
         val databaseRef = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app").reference
-        val userObject = databaseRef.child("users").child(user.toString())
+        val userObject = databaseRef.child("users").child(userName.toString())
 
 
 
@@ -72,7 +72,8 @@ class HomeFragment : Fragment() {
 
         userObject.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue(Person::class.java)
+                val user = dataSnapshot.getValue(Person::class.java) as HashMap<String, Any>
+
 
                 if (user != null) {
                     coins = user.noOfCoins!!

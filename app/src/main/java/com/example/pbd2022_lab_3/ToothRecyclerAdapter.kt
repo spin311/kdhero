@@ -11,23 +11,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 
 class ToothRecyclerAdapter(context: Context): RecyclerView.Adapter<ToothRecyclerAdapter.CardViewHolder>(){
 
-    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("userId", Context.MODE_PRIVATE)
-    private var sharedPreferencesAll:SharedPreferences? = context.getSharedPreferences("all", Context.MODE_PRIVATE)
+    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("current_user", Context.MODE_PRIVATE)
 
-    val user = sharedPreferences?.getString("userId", "0")
-    val donationsToJson = returnDataFile("all", sharedPreferencesAll!!)
+    val userName = sharedPreferences?.getString("current_user", "0")
 
-
-    val don: ArrayList<Activity>? = when(user) {
-        "1" -> donationsToJson?.dent1
-        "2" -> donationsToJson?.dent2
-        "3" -> donationsToJson?.dent3
-        else -> null
-    }
+    val databaseRef = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app").reference
+    val userObject = databaseRef.child("users").child(userName.toString())
+    var user:Person? = null
 
     inner class CardViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         var imageView:ImageView? = null
@@ -36,7 +34,17 @@ class ToothRecyclerAdapter(context: Context): RecyclerView.Adapter<ToothRecycler
 
             imageView = itemView?.findViewById(R.id.item_image)
             date = itemView?.findViewById(R.id.item_date)
-            Log.d("TAG", don?.get(1)?.date.toString())
+
+
+            userObject.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    user = dataSnapshot.getValue(Person::class.java)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle errors here
+                }
+            })
         }
     }
 
@@ -53,8 +61,8 @@ class ToothRecyclerAdapter(context: Context): RecyclerView.Adapter<ToothRecycler
     override fun onBindViewHolder(viewHolder: CardViewHolder, position: Int) {
 
         //val donationData = returnDonationDataClass(keys!![position])
-        if(don != null) {
-            val currentView:Activity = don[position]
+        if(user?.dentist != null) {
+            val currentView:Activity = user?.dentist!![position]
             val encodedImage = currentView.image
             if(encodedImage.equals("")) {
                 viewHolder.imageView?.setImageResource(R.drawable.tooth)
@@ -74,6 +82,6 @@ class ToothRecyclerAdapter(context: Context): RecyclerView.Adapter<ToothRecycler
 
     // get the number of elements
     override fun getItemCount(): Int {
-        return don!!.size
+        return user?.dentist!!.size
     }
 }

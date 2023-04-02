@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -27,7 +28,6 @@ class NewToothVisitFragment : Fragment() {
     var setDate: TextView? = null
     var bitmap: Bitmap? = null
     var sharedPreferences:SharedPreferences? = null
-    var sharedPreferencesJson:SharedPreferences? = null
     var don:ArrayList<com.example.pbd2022_lab_3.Activity>? = null
     var user:String? = null
     override fun onCreateView(
@@ -46,7 +46,7 @@ class NewToothVisitFragment : Fragment() {
         setDate!!.text = getTodaysDate()
         setDateLabel(view)
         //key, value
-        sharedPreferences = view?.context?.getSharedPreferences("userId", Context.MODE_PRIVATE)
+        sharedPreferences = view?.context?.getSharedPreferences("current_user", Context.MODE_PRIVATE)
         saveButton.setOnClickListener {
             var donationData: com.example.pbd2022_lab_3.Activity? = null
             if(bitmap != null) {
@@ -55,11 +55,8 @@ class NewToothVisitFragment : Fragment() {
                 donationData = Activity(setDate?.text.toString(), "")
             }
 
-            user = sharedPreferences?.getString("userId", "0")
-            sharedPreferencesJson = view?.context?.getSharedPreferences("all", Context.MODE_PRIVATE)
-            // dobim vse podatke
-            val dataFile = returnDataFile("all", sharedPreferencesJson!!)
-            val editor = sharedPreferencesJson?.edit()
+            user = sharedPreferences?.getString("current_user", "0")
+
 
 
             if(duplicateDate(setDate?.text.toString())) {
@@ -67,11 +64,10 @@ class NewToothVisitFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            when(user) {
-                "1" -> dataFile?.dent1?.add(donationData)
-                "2" -> dataFile?.dent2?.add(donationData)
-                "3" -> dataFile?.dent3?.add(donationData)
-            }
+            val database = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app")
+
+            val myRef = database.reference
+            myRef.child("users").child(user!!).child("dentist").push().setValue(donationData)
 
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.activityMain, ToothFragment())?.commit()
 

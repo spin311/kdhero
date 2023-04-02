@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -27,7 +28,6 @@ class NewSvitVisitFragment : Fragment() {
     var setDate: TextView? = null
     var bitmap: Bitmap? = null
     var sharedPreferences:SharedPreferences? = null
-    var sharedPreferencesJson:SharedPreferences? = null
     var don:ArrayList<com.example.pbd2022_lab_3.Activity>? = null
     var user:String? = null
     override fun onCreateView(
@@ -46,7 +46,8 @@ class NewSvitVisitFragment : Fragment() {
         setDate!!.text = getTodaysDate()
         setDateLabel(view)
         //key, value
-        sharedPreferences = view?.context?.getSharedPreferences("userId", Context.MODE_PRIVATE)
+        sharedPreferences = view?.context?.getSharedPreferences("current_user", Context.MODE_PRIVATE)
+        var userData = sharedPreferences?.getString("current_user", "0")
         saveButton.setOnClickListener {
             var donationData: com.example.pbd2022_lab_3.Activity? = null
             if(bitmap != null) {
@@ -55,24 +56,17 @@ class NewSvitVisitFragment : Fragment() {
                 donationData = Activity(setDate?.text.toString(), "")
             }
 
-            user = sharedPreferences?.getString("userId", "0")
-            sharedPreferencesJson = view?.context?.getSharedPreferences("all", Context.MODE_PRIVATE)
-            // dobim vse podatke
-            val dataFile = returnDataFile("all", sharedPreferencesJson!!)
-            val editor = sharedPreferencesJson?.edit()
-
-
             if(duplicateDate(setDate?.text.toString())) {
                 Toast.makeText(view.context, "You already have a visit on this date", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
+            val database = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app")
 
-            when(user) {
-                "1" -> dataFile?.svit1?.add(donationData)
-                "2" -> dataFile?.svit2?.add(donationData)
-                "3" -> dataFile?.svit3?.add(donationData)
-            }
+            val myRef = database.reference.child("users").child(userData!!)
+            myRef.child("svit").push().setValue(donationData)
 
+
+            // donationData shrannis kot svit
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.activityMain, SvitFragment())?.commit()
 
         }
