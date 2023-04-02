@@ -1,8 +1,6 @@
 package com.example.pbd2022_lab_3
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -13,16 +11,19 @@ import com.google.firebase.database.FirebaseDatabase
 import java.io.FileInputStream
 
 
+class MainActivity : AppCompatActivity() {
+
+    var sharedPreferences:SharedPreferences? = null
 class MainActivity : AppCompatActivity(),  HomeFragment.MyFragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        sharedPreferences = getSharedPreferences("current_user", MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
 
-        // Initialize Firebase with your project ID and database URL
-// Get a reference to your database
-        val database = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app")
-
+        //TODO("prek logina oziroma registra moramo pridobiti username")
+        editor?.putString("current_user", "jan33")?.apply()
         val myRef = database.getReference("")
 
         val sharedPreferences = this.getSharedPreferences("userId", Context.MODE_PRIVATE)
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(),  HomeFragment.MyFragmentListener {
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.activityMain, fragment)
+        fragmentTransaction.replace(R.id.main_activity, fragment)
         fragmentTransaction.commit()
     }
 }

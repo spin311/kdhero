@@ -2,32 +2,22 @@ package com.example.pbd2022_lab_3
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
-import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-
+import com.google.firebase.database.FirebaseDatabase
 class DonationRecyclerAdapter(context: Context): RecyclerView.Adapter<DonationRecyclerAdapter.CardViewHolder>(){
 
-    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("userId", Context.MODE_PRIVATE)
-    private var sharedPreferencesAll:SharedPreferences? = context.getSharedPreferences("all", Context.MODE_PRIVATE)
+    private var sharedPreferences:SharedPreferences? = context.getSharedPreferences("current_user", Context.MODE_PRIVATE)
 
-    val user = sharedPreferences?.getString("userId", "0")
-    val donationsToJson = returnDataFile("all", sharedPreferencesAll!!)
+    private val user = sharedPreferences?.getString("current_user", "0")
+    private val databaseRef = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app").reference
 
-
-    val don: ArrayList<Activity>? = when(user) {
-        "1" -> donationsToJson?.don1
-        "2" -> donationsToJson?.don2
-        "3" -> donationsToJson?.don3
-        else -> null
-    }
+    // array of blood donations
+    val userRef = databaseRef.child("users").child(user.toString())
 
     inner class CardViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         var imageView:ImageView? = null
@@ -36,7 +26,6 @@ class DonationRecyclerAdapter(context: Context): RecyclerView.Adapter<DonationRe
 
             imageView = itemView?.findViewById(R.id.item_image)
             date = itemView?.findViewById(R.id.item_date)
-            Log.d("TAG", don?.get(1)?.date.toString())
         }
     }
 
@@ -51,20 +40,20 @@ class DonationRecyclerAdapter(context: Context): RecyclerView.Adapter<DonationRe
     override fun onBindViewHolder(viewHolder: CardViewHolder, position: Int) {
 
         //val donationData = returnDonationDataClass(keys!![position])
-        if(don != null) {
-            val currentView:Activity = don[position]
-            val encodedImage = currentView.image
-            if(encodedImage.equals("")) {
-                viewHolder.imageView?.setImageResource(R.drawable.drop_shape)
-            } else {
-                val decodedBytes = Base64.decode(encodedImage, Base64.DEFAULT)
-                val decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-                viewHolder.imageView?.setImageBitmap(decodedBitmap)
-            }
+       // if(don != null) {
+         //   val currentView:Activity = don[position]
+         //   val encodedImage = currentView.image
+          //  if(encodedImage.equals("")) {
+            //    viewHolder.imageView?.setImageResource(R.drawable.drop_shape)
+         //   } else {
+          //      val decodedBytes = Base64.decode(encodedImage, Base64.DEFAULT)
+          //      val decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+          //      viewHolder.imageView?.setImageBitmap(decodedBitmap)
+          //  }
 
-            viewHolder.date?.text = currentView.date
+           // viewHolder.date?.text = currentView.date
 
-        }
+       // }
     }
 
 
@@ -72,6 +61,6 @@ class DonationRecyclerAdapter(context: Context): RecyclerView.Adapter<DonationRe
 
     // get the number of elements
     override fun getItemCount(): Int {
-        return don!!.size
+        return 3
     }
 }

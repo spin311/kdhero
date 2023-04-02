@@ -1,15 +1,16 @@
 package com.example.pbd2022_lab_3
 
 class Person(
-    val username: String,
-    val password: String,
-    val age: Int,
-    val email: String,
-    val sex: String,
-    val noOfCoins: Int,
-    val bloodDon: ArrayList<Activity>,
-    val dentist: ArrayList<Activity>,
-    val svit: ArrayList<Activity>,
-    val achievements: ArrayList<Int> // ids of achievements that the person has achieved
+    val username: String? = null,
+    val password: String? = null,
+    val age: Int? = null,
+    val email: String? = null,
+    val sex: String? = null,
+    val noOfCoins: Int? = null,
+    val bloodDon: ArrayList<Activity>? = null,
+    val dentist: ArrayList<Activity>? = null,
+    val svit: ArrayList<Activity>? = null,
+    val achievements: ArrayList<Activity>? = null // ids of achievements that the person has achieved
 )  {
+
 }

@@ -17,7 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -30,7 +30,7 @@ class NewBloodDonationFragment : Fragment() {
     var setDate: TextView? = null
     var bitmap: Bitmap? = null
     var sharedPreferences:SharedPreferences? = null
-    var sharedPreferencesJson:SharedPreferences? = null
+    //var sharedPreferencesJson:SharedPreferences? = null
     var don:ArrayList<com.example.pbd2022_lab_3.Activity>? = null
     var user:String? = null
     override fun onCreateView(
@@ -44,17 +44,13 @@ class NewBloodDonationFragment : Fragment() {
 
         var saveButton = view.findViewById<Button>(R.id.button_save)
 
-        // firebase
-         var database: DatabaseReference = Firebase.database.reference
-        database.child("users").child("user1").setValue(DataFile.user1)
-
         imageView?.setOnClickListener {
             addImage()
         }
         setDate!!.text = getTodaysDate()
         setDateLabel(view)
         //key, value
-        sharedPreferences = view?.context?.getSharedPreferences("userId", Context.MODE_PRIVATE)
+        sharedPreferences = view?.context?.getSharedPreferences("current_user", Context.MODE_PRIVATE)
         saveButton.setOnClickListener {
             var donationData: com.example.pbd2022_lab_3.Activity? = null
             if(bitmap != null) {
@@ -63,11 +59,11 @@ class NewBloodDonationFragment : Fragment() {
                 donationData = Activity(setDate?.text.toString(), "")
             }
 
-            user = sharedPreferences?.getString("userId", "0")
-            sharedPreferencesJson = view?.context?.getSharedPreferences("all", Context.MODE_PRIVATE)
+            user = sharedPreferences?.getString("current_user", "0")
+           // sharedPreferencesJson = view?.context?.getSharedPreferences("all", Context.MODE_PRIVATE)
             // dobim vse podatke
-            val dataFile = returnDataFile("all", sharedPreferencesJson!!)
-            val editor = sharedPreferencesJson?.edit()
+           // val dataFile = returnDataFile("all", sharedPreferencesJson!!)
+           // val editor = sharedPreferencesJson?.edit()
 
 
             if(duplicateDate(setDate?.text.toString())) {
@@ -75,11 +71,11 @@ class NewBloodDonationFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            when(user) {
-                "1" -> dataFile?.don1?.add(donationData)
-                "2" -> dataFile?.don2?.add(donationData)
-                "3" -> dataFile?.don3?.add(donationData)
-            }
+            // add new donation data to user list
+
+            val databaseRef = FirebaseDatabase.getInstance("https://zdravko-7bddd-default-rtdb.europe-west1.firebasedatabase.app").reference
+            val userRef = databaseRef.child("users").child(user.toString()).child("bloodDon")
+            userRef.push().setValue(donationData)
 
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.activityMain, BloodMainFragment())?.commit()
 
@@ -112,9 +108,6 @@ class NewBloodDonationFragment : Fragment() {
 
     // checks if you try to save to do list with the same date as one that is already saved
     private fun duplicateDate(date: String) : Boolean {
-
-        // pogledas v userjevem shared preferencu
-
         don?.let {
             for(i in it) {
                 if(i.date.equals(date)) {
@@ -123,7 +116,6 @@ class NewBloodDonationFragment : Fragment() {
             }
         }
         return false
-
     }
 
     // open camera when user wants to change the image
