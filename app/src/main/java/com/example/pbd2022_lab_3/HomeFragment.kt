@@ -83,12 +83,12 @@ class HomeFragment : Fragment() {
         }
         val toothBtn = view.findViewById<TextView>(R.id.zobBtn)
 
-//        toothBtn.setOnClickListener {
-//            val toothFragment = ToothMainFragment()
-//            val transaction = parentFragmentManager.beginTransaction()
-//            transaction.replace(R.id.activityMain, toothFragment)
-//            transaction.commit()
-//        }
+        toothBtn.setOnClickListener {
+            val toothFragment = ToothFragment()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.activityMain, toothFragment)
+            transaction.commit()
+        }
         val svitBtn = view.findViewById<TextView>(R.id.svitBtn)
 
         svitBtn.setOnClickListener {
